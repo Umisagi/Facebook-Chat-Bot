@@ -6,7 +6,7 @@
  * Time: 3:26 PM
  */
 $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
-$verify_token = "fb_time_bot";
+$verify_token = "just_do_it";
 $hub_verify_token = null;
 
 if(isset($_REQUEST['hub_challenge'])) {
