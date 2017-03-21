@@ -10,10 +10,6 @@ $verify_token = "just_do_it";
 $hub_verify_token = null;
 
 
-$time = date('[Y-M-d H:i:s]');
-fwrite($fp, "$time $message" . PHP_EOL);
-fclose($fp);
-}
 
 if(isset($_REQUEST['hub_challenge'])) {
     $challenge = $_REQUEST['hub_challenge'];
