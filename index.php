@@ -9,6 +9,18 @@ $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCb
 $verify_token = "just_do_it";
 $hub_verify_token = null;
 
+private function logWrite($message){
+    $dateday = date('Ymd');
+    $logFile = "/var/www/html/testfbmenu.log";
+    $fp = fopen($logFile, 'a');
+    if($fp == null){
+      return;
+}
+$time = date('[Y-M-d H:i:s]');
+fwrite($fp, "$time $message" . PHP_EOL);
+fclose($fp);
+}
+
 if(isset($_REQUEST['hub_challenge'])) {
     $challenge = $_REQUEST['hub_challenge'];
     $hub_verify_token = $_REQUEST['hub_verify_token'];
@@ -20,7 +32,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-
+logWrite("Input : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
@@ -59,7 +71,7 @@ $ch = curl_init($url);
 
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
-
+logWrite("Output : ".print_r($jsonDataEncoded,true));
 //Tell cURL that we want to send a POST request.
 curl_setopt($ch, CURLOPT_POST, 1);
 
