@@ -23,7 +23,7 @@ if ($hub_verify_token === $verify_token) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 //logWrite("Input : ".print_r($input,true));
-error_log("hello, this is a test!");
+error_log("####INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
@@ -62,7 +62,7 @@ $ch = curl_init($url);
 
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
-//logWrite("Output : ".print_r($jsonDataEncoded,true));
+error_log("####OUTPUT : ".print_r($jsonDataEncoded,true));
 //Tell cURL that we want to send a POST request.
 curl_setopt($ch, CURLOPT_POST, 1);
 
