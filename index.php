@@ -85,8 +85,7 @@ $ch = curl_init($url);
 
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
-$jsonDataEnceded2 = json_encode($jsonDataEncoded);
-error_log("####OUTPUT : ".print_r($jsonDataEncoded2,true));
+error_log("####OUTPUT : ".print_r($jsonDataEncoded,true));
 //Tell cURL that we want to send a POST request.
 curl_setopt($ch, CURLOPT_POST, 1);
 
