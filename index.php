@@ -9,13 +9,7 @@ $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCb
 $verify_token = "just_do_it";
 $hub_verify_token = null;
 
-private function logWrite($message){
-    $dateday = date('Ymd');
-    $logFile = "/var/www/html/testfbmenu.log";
-    $fp = fopen($logFile, 'a');
-    if($fp == null){
-      return;
-}
+
 $time = date('[Y-M-d H:i:s]');
 fwrite($fp, "$time $message" . PHP_EOL);
 fclose($fp);
