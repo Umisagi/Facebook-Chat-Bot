@@ -36,7 +36,7 @@ error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
 // Search mid for tid
-$results = $facebook->api("/m_mid.$cAASz7lCTwNphKmOCzVa-R42xahk7")->get();
+$results = $facebook->api("/me")->get();
 if($results->error):
   return return_error('Notifications', $results->error);
 endif;
