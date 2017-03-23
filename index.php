@@ -40,7 +40,13 @@ $results = $facebook->api("/m_{$mid}")->fields('from, to')->get();
 if($results->error):
   return error_log('*************Error : '.print_r($results,true));
 endif;
-error_log("####Results : ".print_r($results,true));
+//error_log("####Results : ".print_r($results,true));
+if(!empty($input['entry'][0]['messaging'][0]['message'])){
+    $userid = $results['from']['id'];
+    $pageid = $results['to']['data'][0]['id'];
+}
+error_log("------Userid : ".$userid);
+error_log("------Pageid : ".$pageid);
 
 /**
  * Some Basic rules to validate incoming messages
