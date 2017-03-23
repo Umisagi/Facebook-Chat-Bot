@@ -40,6 +40,10 @@ class Facebook {
     $this->api = $api;
     return $this;
   }
+  
+  public function getrekt(){
+    error_log("####Messageid : Rekttesting");
+  }
 
   public function get(){
     $this->generateRequestURL();
