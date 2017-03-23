@@ -5,7 +5,11 @@
  * Date: 24/04/16
  * Time: 3:26 PM
  */
+require('facebook-library.php');
+
 $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
+$this->facebook = new Facebook($access_token);
+
 $verify_token = "just_do_it";
 $hub_verify_token = null;
 
@@ -23,26 +27,23 @@ if ($hub_verify_token === $verify_token) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 //logWrite("Input : ".print_r($input,true));
-error_log("####INPUT : ".print_r($input,true));
+//error_log("####INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
+$mid = $input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
-
+error_log("####Messageid : ".$mid);
 $message_to_reply = '';
+
+// Search mid for tid
+$result = $this->facebook->api($mid)->fields('from,to')->get();
+if($results->error):
+  return $this->return_error('Notifications', $results->error);
+endif;
+error_log("####ApiResults : ".$mid);
 
 /**
  * Some Basic rules to validate incoming messages
  */
-if(preg_match('[time|current time|now]', strtolower($message))) {
-
-    // Make request to Time API
-    ini_set('user_agent','Mozilla/4.0 (compatible; MSIE 6.0)');
-    $result = file_get_contents("http://www.timeapi.org/utc/now?format=%25a%20%25b%20%25d%20%25I:%25M:%25S%20%25Y");
-    if($result != '') {
-        $message_to_reply = $result;
-    }
-} else {
-    $message_to_reply = 'Huh! what do you mean?';
-}
 
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
