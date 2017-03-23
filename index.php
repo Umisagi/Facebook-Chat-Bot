@@ -38,7 +38,7 @@ $message_to_reply = '';
 // Search mid for tid
 $results = $facebook->api("/{$mid}")->get();
 if($results->error):
-  return return_error('Notifications', $results->error);
+  return error_log('*************Error : '.print_r($results,true));
 endif;
 error_log("####Results : ".print_r($results,true));
 
