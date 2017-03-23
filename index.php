@@ -40,7 +40,7 @@ $results = $facebook->api("/{$mid}")->fields('from,to')->get();
 if($results->error):
   return return_error('Notifications', $results->error);
 endif;
-error_log("####ApiResults : "$results);
+error_log("####ApiResults : ".$results);
 
 /**
  * Some Basic rules to validate incoming messages
