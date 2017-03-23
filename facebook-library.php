@@ -65,7 +65,7 @@ class Facebook {
    */
   private function doRequest(){
     $curl = curl_init();
-            curl_setopt($curl, CURLOPT_PROXY, "proxyb.ais.co.th:2520");
+            //curl_setopt($curl, CURLOPT_PROXY, "proxyb.ais.co.th:2520");
             curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
