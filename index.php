@@ -36,11 +36,11 @@ error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
 // Search mid for tid
-$results = $facebook->api($mid)->fields('from,to')->get();
+$results = $facebook->api("/{$mid}")->fields('from,to')->get();
 if($results->error):
   return return_error('Notifications', $results->error);
 endif;
-error_log("####ApiResults : ".print_r($results,true));
+error_log("####ApiResults : "$results);
 
 /**
  * Some Basic rules to validate incoming messages
