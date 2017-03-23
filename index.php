@@ -8,7 +8,7 @@
 require('facebook-library.php');
 
 $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
-$this->facebook = new Facebook($access_token);
+$facebook = new Facebook($access_token);
 
 $verify_token = "just_do_it";
 $hub_verify_token = null;
@@ -35,9 +35,9 @@ error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
 // Search mid for tid
-$result = $this->facebook->api($mid)->fields('from,to')->get();
+$result = facebook->api($mid)->fields('from,to')->get();
 if($results->error):
-  return $this->return_error('Notifications', $results->error);
+  return return_error('Notifications', $results->error);
 endif;
 error_log("####ApiResults : ".$mid);
 
