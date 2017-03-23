@@ -48,7 +48,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])){
     $pageid = $results->to->data[0]->id;
     //Chk db
     $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
-    error_log("-----Threads : ".print_r($results,true);
+    error_log("-----Threads : ".print_r($results,true));
 }
 //error_log("------Userid : ".$userid);
 //error_log("------Pageid : ".$pageid);
