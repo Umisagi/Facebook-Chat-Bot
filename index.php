@@ -32,7 +32,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $mid = $input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
-$time = $input['entry'][0]['messaging'][0]['timestamp'];
+$time = $input['entry'][0]['messaging'][0]['timestamp']-1;
 error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
@@ -98,7 +98,7 @@ $ch = curl_init($url);
 
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
-error_log("####OUTPUT : ".print_r($jsonDataEncoded,true));
+//error_log("####OUTPUT : ".print_r($jsonDataEncoded,true));
 //Tell cURL that we want to send a POST request.
 curl_setopt($ch, CURLOPT_POST, 1);
 
