@@ -33,7 +33,7 @@ $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $mid = $input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $time = $input['entry'][0]['messaging'][0]['timestamp'];
-$time2 = $input['entry'][0]['messaging'][0]['timestamp']*0.001-1;
+$time2 = floor($input['entry'][0]['messaging'][0]['timestamp']*0.001-1);
 error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
