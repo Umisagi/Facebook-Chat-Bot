@@ -44,7 +44,7 @@ endif;
 //error_log("####Results : ".print_r($results,true));
 if(!empty($input['entry'][0]['messaging'][0]['message'])){
     $userid = $results->from->id;
-    $pageid = $results->to->data->{0}->id;
+    $pageid = $results->to->data[0]->id;
 }
 error_log("------Userid : ".$userid);
 error_log("------Pageid : ".$pageid);
