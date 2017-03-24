@@ -29,13 +29,13 @@ if ($hub_verify_token === $verify_token) {
 $input = json_decode(file_get_contents('php://input'), true);
 //logWrite("Input : ".print_r($input,true));
 //error_log("####INPUT : ".print_r($input,true));
-$sender = $input['entry'][0]['messaging'][0]['sender']['id'];
-$mid = $input['entry'][0]['messaging'][0]['message']['mid'];
-$message = $input['entry'][0]['messaging'][0]['message']['text'];
+$sender = $input['entry'][0]['messaging'][0]['sender']['id']; // Sender
+$mid = $input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
+$message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
 $time = $time-1;
-error_log("####Messageid : ".$mid);
+//error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
 // Search mid for tid
@@ -45,24 +45,39 @@ if($results->error):
   return error_log('*************Error : '.print_r($results,true));
 endif;
 //error_log("####Results : ".print_r($results,true));
-if(!empty($input['entry'][0]['messaging'][0]['message'])){
+if(!empty($input['entry'][0]['messaging'][0]['message'])):
     $userid = $results->from->id;
+    $username = $results->from->name;
     $pageid = $results->to->data[0]->id;
-    error_log("----Time : ".$time);
+    $pagename = $results->to->data[0]->name;
+    $createdtime = $results->created_time;
+    //error_log("----Time : ".$time);
     //Chk db
-    $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
-    //error_log("-----Threads : ".print_r($results,true));
-    foreach($results->data as $thread){
-        // Chking if not null
-        if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid){
-            $threadid = $thread->id;   
-        }
-        error_log("-----Threadid : ".$threadid);
-    }
-}
-//error_log("------Userid : ".$userid);
-//error_log("------Pageid : ".$pageid);
-
+    if (!isset($threadid)):
+        $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+        //error_log("-----Threads : ".print_r($results,true));
+        while (isset($results->paging)):
+            $nextthread = $results->paging->next;
+            foreach($results->data as $thread):
+                // Chking if not null
+                if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
+                    $threadid = $thread->id;
+                    $updatetime = $thread->updated_time;
+                endif;
+                //error_log("-----Threadid : ".$threadid);
+            endforeach;
+            $results = $this->facebook->getnext($nextpage);
+        endwhile;
+    endif
+    
+endif;
+error_log("------Userid : ".$userid);
+error_log("------Username : ".$username);
+error_log("------Pageid : ".$pageid);
+error_log("------Pagename : ".$pagename);
+error_log("------Thread ID : ".$threadid);
+error_log("------Message : ".$message);
+error_log("------Time : ".$createdtime);
 /**
  * Some Basic rules to validate incoming messages
  */
