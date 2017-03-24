@@ -30,7 +30,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 //logWrite("Input : ".print_r($input,true));
 //error_log("####INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // Sender
-$mid = $input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
+$mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
@@ -39,7 +39,7 @@ $time = $time-1;
 $message_to_reply = '';
 
 // Search mid for tid
-$results = $facebook->api("/m_{$mid}")->fields('from, to, created_time')->get();
+$results = $facebook->api("$mid")->fields('from, to, created_time')->get();
 //$decoderesults = json_decode($results,true);
 if($results->error):
   return error_log('*************Error : '.print_r($results,true));
@@ -76,6 +76,7 @@ error_log("------Username : ".$username);
 error_log("------Pageid : ".$pageid);
 error_log("------Pagename : ".$pagename);
 error_log("------Thread ID : ".$threadid);
+error_log("------Message ID : ".$mid);
 error_log("------Message : ".$message);
 error_log("------Time : ".$createdtime);
 /**
