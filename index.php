@@ -68,7 +68,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
             endforeach;
             $results = $this->facebook->getnext($nextpage);
         endwhile;
-    endif
+    endif;
     
 endif;
 error_log("------Userid : ".$userid);
