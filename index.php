@@ -33,7 +33,7 @@ $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
-$time = $time-1;
+$time = $time-5;
 
 $message_to_reply = '';
 
