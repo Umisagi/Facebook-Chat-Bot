@@ -66,7 +66,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
                 endif;
                 //error_log("-----Threadid : ".$threadid);
             endforeach;
-            $results = facebook->getnext($nextpage);
+            $results = $facebook->getnext($nextpage);
         endwhile;
     endif;
     
