@@ -39,7 +39,7 @@ $time = $time-1;
 $message_to_reply = '';
 
 // Search mid for tid
-$results = $facebook->api("$mid")->fields('from, to, created_time')->get();
+$results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
 //$decoderesults = json_decode($results,true);
 if($results->error):
   return error_log('*************Error : '.print_r($results,true));
