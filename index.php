@@ -27,7 +27,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-error_log("****INPUT : ".print_r($input,true));
+//error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
@@ -90,7 +90,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     // If not found
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
-        error_log("/*-/*-Results : ".print_r($results,true));
+        //error_log("/*-/*-Results : ".print_r($results,true));
         while (isset($results->paging)):
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
