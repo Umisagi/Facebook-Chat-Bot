@@ -74,7 +74,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
     error_log("####Sending mode####");
 
 elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
-    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mid'][0];
+    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0];
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
     if($results->error):
       return error_log('*************Error : '.print_r($results,true));
