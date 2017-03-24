@@ -51,7 +51,14 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])){
     error_log("----Time : ".$time);
     //Chk db
     $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
-    error_log("-----Threads : ".print_r($results,true));
+    //error_log("-----Threads : ".print_r($results,true));
+    foreach($results->data as $thread){
+        // Chking if not null
+        if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid){
+            $threadid = $thread->id;   
+        }
+        error_log("-----Threadid : ".$threadid);
+    }
 }
 //error_log("------Userid : ".$userid);
 //error_log("------Pageid : ".$pageid);
