@@ -53,6 +53,8 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
 
     //error_log("----Time : ".$time);
     //Chk db
+
+    // If not found
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
         //error_log("-----Threads : ".print_r($results,true));
@@ -69,17 +71,47 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
             $results = $facebook->getnext($nextpage);
         endwhile;
     endif;
-    
+    error_log("####Sending mode####");
 endif;
+elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
+    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mid'][0];
+    $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
+    if($results->error):
+      return error_log('*************Error : '.print_r($results,true));
+    endif;
+    $pageid = $results->from->id;
+    $pagename = $results->from->name;
+    $userid = $results->to->data[0]->id;
+    $username = $results->to->data[0]->name;
+    $createdtime = $results->created_time;
+    $message = $results->message;
+    // Chk db
 
-//error_log("------Userid : ".$userid);
-//error_log("------Username : ".$username);
-//error_log("------Pageid : ".$pageid);
-//error_log("------Pagename : ".$pagename);
-//error_log("------Thread ID : ".$threadid);
-//error_log("------Message ID : ".$mid);
-//error_log("------Message : ".$message);
-//error_log("------Time : ".$createdtime);
+    // If not found
+    if (!isset($threadid)):
+        $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+        while (isset($results->paging)):
+            $nextthread = $results->paging->next;
+            foreach($results->data as $thread):
+                // Chking if not null
+                if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
+                    $threadid = $thread->id;
+                    $updatetime = $thread->updated_time;
+                endif;
+            endforeach;
+            $results = $facebook->getnext($nextpage);
+        endwhile;
+    endif;
+    error_log("####Reciving mode####");
+endif;
+error_log("------Userid : ".$userid);
+error_log("------Username : ".$username);
+error_log("------Pageid : ".$pageid);
+error_log("------Pagename : ".$pagename);
+error_log("------Thread ID : ".$threadid);
+error_log("------Message ID : ".$mid);
+error_log("------Message : ".$message);
+error_log("------Time : ".$createdtime);
 /**
  * Some Basic rules to validate incoming messages
  */
