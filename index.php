@@ -27,7 +27,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//error_log("****INPUT : ".print_r($input,true));
+error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
@@ -172,8 +172,7 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 
 //Execute the request
-if(!empty($input['entry'][0]['messaging'][0]['message'])){
-        
+if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
 }
 
