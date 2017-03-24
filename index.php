@@ -90,6 +90,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     // If not found
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+        error_log("/*-/*-Results : ".print_r($results,true));
         while (isset($results->paging)):
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
