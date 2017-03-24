@@ -32,10 +32,9 @@ $input = json_decode(file_get_contents('php://input'), true);
 $sender = $input['entry'][0]['messaging'][0]['sender']['id'];
 $mid = $input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
-$time = $input['entry'][0]['messaging'][0]['timestamp'];
-$time2 = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
-$time3 = floor($time2);
-$time4 = $time3-1;
+$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
+$time = floor($time);
+$time = $time-1;
 error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
@@ -49,13 +48,10 @@ endif;
 if(!empty($input['entry'][0]['messaging'][0]['message'])){
     $userid = $results->from->id;
     $pageid = $results->to->data[0]->id;
-    error_log("---Time1 : ".$time);
-    error_log("---Time2 : ".$time2);
-    error_log("---Time3 : ".$time3);
-    error_log("---Time4 : ".$time4);
+    error_log("----Time : ".$time);
     
     //Chk db
-    //$results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+    $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
     //error_log("-----Threads : ".print_r($results,true));
 }
 //error_log("------Userid : ".$userid);
