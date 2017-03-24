@@ -27,30 +27,30 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//logWrite("Input : ".print_r($input,true));
-//error_log("####INPUT : ".print_r($input,true));
-$sender = $input['entry'][0]['messaging'][0]['sender']['id']; // Sender
-$mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
+error_log("****INPUT : ".print_r($input,true));
+$sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
+
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
 $time = $time-1;
-//error_log("####Messageid : ".$mid);
+
 $message_to_reply = '';
 
 // Search mid for tid
-$results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
-//$decoderesults = json_decode($results,true);
-if($results->error):
-  return error_log('*************Error : '.print_r($results,true));
-endif;
-//error_log("####Results : ".print_r($results,true));
+
 if(!empty($input['entry'][0]['messaging'][0]['message'])):
+    $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
+    $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
+    if($results->error):
+      return error_log('*************Error : '.print_r($results,true));
+    endif;
     $userid = $results->from->id;
     $username = $results->from->name;
     $pageid = $results->to->data[0]->id;
     $pagename = $results->to->data[0]->name;
     $createdtime = $results->created_time;
+
     //error_log("----Time : ".$time);
     //Chk db
     if (!isset($threadid)):
@@ -71,14 +71,15 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
     endif;
     
 endif;
-error_log("------Userid : ".$userid);
-error_log("------Username : ".$username);
-error_log("------Pageid : ".$pageid);
-error_log("------Pagename : ".$pagename);
-error_log("------Thread ID : ".$threadid);
-error_log("------Message ID : ".$mid);
-error_log("------Message : ".$message);
-error_log("------Time : ".$createdtime);
+
+//error_log("------Userid : ".$userid);
+//error_log("------Username : ".$username);
+//error_log("------Pageid : ".$pageid);
+//error_log("------Pagename : ".$pagename);
+//error_log("------Thread ID : ".$threadid);
+//error_log("------Message ID : ".$mid);
+//error_log("------Message : ".$message);
+//error_log("------Time : ".$createdtime);
 /**
  * Some Basic rules to validate incoming messages
  */
