@@ -71,7 +71,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
             $results = $facebook->getnext($nextpage);
         endwhile;
     endif;
-    error_log("####Sending mode####");
+    error_log("####User Sending Mode####");
 
 elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0];
@@ -102,7 +102,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
             $results = $facebook->getnext($nextpage);
         endwhile;
     endif;
-    error_log("####Reciving mode####");
+    error_log("####Page Sending Mode####");
 endif;
 error_log("------Userid : ".$userid);
 error_log("------Username : ".$username);
