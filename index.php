@@ -35,7 +35,6 @@ $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
 $time = $time-1;
-$time2 = $input['entry'][0]['messaging'][0]['timestamp'];
 error_log("####Messageid : ".$mid);
 $message_to_reply = '';
 
@@ -50,10 +49,9 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])){
     $userid = $results->from->id;
     $pageid = $results->to->data[0]->id;
     error_log("----Time : ".$time);
-    error_log("----Time2 : ".$time2);
     //Chk db
     $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
-    //error_log("-----Threads : ".print_r($results,true));
+    error_log("-----Threads : ".print_r($results,true));
 }
 //error_log("------Userid : ".$userid);
 //error_log("------Pageid : ".$pageid);
