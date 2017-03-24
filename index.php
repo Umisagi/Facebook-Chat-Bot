@@ -15,7 +15,6 @@ $verify_token = "just_do_it";
 $hub_verify_token = null;
 
 
-
 if(isset($_REQUEST['hub_challenge'])) {
     $challenge = $_REQUEST['hub_challenge'];
     $hub_verify_token = $_REQUEST['hub_verify_token'];
