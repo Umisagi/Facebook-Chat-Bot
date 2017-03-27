@@ -88,8 +88,8 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     // Chk db
 
     // If not found
-    if (!isset($threadsearch)):
-        $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+    if (!isset($threadid)):
+        $results = $facebook->api("/me/threads")->fields('participants, updated_time')->since($time)->get();
         //error_log("/*-/*-Results : ".print_r($results,true));
         while (isset($results->paging)):
             $nextthread = $results->paging->next;
