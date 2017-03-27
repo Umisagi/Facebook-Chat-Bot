@@ -23,95 +23,6 @@ if ($hub_verify_token === $verify_token) {
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
-$message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
-$ctime = $input['entry'][0]['messaging'][0]['timestamp'];
-$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
-$time = floor($time);
-$time = $time-5;
-
-$message_to_reply = '';
-/*
-// Search mid for tid
-// Incoming message
-if(!empty($input['entry'][0]['messaging'][0]['message'])):
-    $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
-    $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
-    if($results->error):
-        error_log('*************Error : '.print_r($results,true));
-        error_log("##########Error mid : ".$mid);
-    endif;
-    $userid = $results->from->id;
-    $username = $results->from->name;
-    $pageid = $results->to->data[0]->id;
-    $pagename = $results->to->data[0]->name;
-    $createdtime = $results->created_time;
-    //Chk db
-
-    // If not found
-    if (!isset($threadid)):
-        $results = $facebook->api("/me/threads")->fields('participants, updated_time')->since($time)->get();
-        //error_log("-----Threads : ".print_r($results,true));
-        while (isset($results->paging)):
-            $nextthread = $results->paging->next;
-            foreach($results->data as $thread):
-                if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
-                    $threadid = $thread->id;
-                    $updatetime = $thread->updated_time;
-                endif;
-            endforeach;
-            $results = $facebook->getnext($nextpage);
-        endwhile;
-    endif;
-    error_log("####User Sending Mode####");
-
-// Outgoing message
-elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])): 
-    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0]; // Message ID
-    $results = $facebook->api("/{$mid}")->fields('from, to, created_time, message')->get();
-    if($results->error):
-      return error_log('*************Error : '.print_r($results,true));
-    endif;
-    $pageid = $results->from->id;
-    $pagename = $results->from->name;
-    $userid = $results->to->data[0]->id;
-    $username = $results->to->data[0]->name;
-    $createdtime = $results->created_time;
-    $message = $results->message;
-    // Chk db
-
-    // If not found
-    if (!isset($threadid)):
-        $results = $facebook->api("/me/threads")->fields('participants, updated_time')->since($time)->get();
-        //error_log("/*-/*-Results : ".print_r($results,true));
-        while (isset($results->paging)):
-            $nextthread = $results->paging->next;
-            foreach($results->data as $thread):
-                if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
-                    $threadid = $thread->id;
-                    $updatetime = $thread->updated_time;
-                endif;
-            endforeach;
-            $results = $facebook->getnext($nextpage);
-        endwhile;
-    endif;
-    error_log("####Page Sending Mode####");
-endif;
-
-error_log("*****************************");
-error_log("------Thread ID : ".$threadid);
-error_log("------Create Time : ".$ctime);
-error_log("------Update Time : ".$updatetime);
-error_log("*****************************");
-error_log("------Userid : ".$userid);
-error_log("------Username : ".$username);
-error_log("------Pageid : ".$pageid);
-error_log("------Pagename : ".$pagename);
-error_log("------Thread ID : ".$threadid);
-error_log("------Message ID : ".$mid);
-error_log("------Message : ".$message);
-error_log("------Time : ".$createdtime);
-*/
-
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 
@@ -119,7 +30,7 @@ $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token
 //Initiate cURL.
 $ch = curl_init($url);
 //The JSON data.
-    $jsonData = '{
+$jsonData = '{
     "recipient":{
         "id":"'.$sender.'"
     },
@@ -162,9 +73,6 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
 
 //Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-//curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
-
-
 
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
