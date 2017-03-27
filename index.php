@@ -29,6 +29,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
+$ctime = $input['entry'][0]['messaging'][0]['timestamp'];
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
 $time = $time-5;
@@ -102,7 +103,7 @@ endif;
 
 error_log("*****************************");
 error_log("------Thread ID : ".$threadid);
-error_log("------Create Time : ".$createdtime);
+error_log("------Create Time : ".$ctime);
 error_log("------Update Time : ".$updatetime);
 error_log("*****************************");
 error_log("------Userid : ".$userid);
