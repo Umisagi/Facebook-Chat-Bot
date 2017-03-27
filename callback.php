@@ -6,6 +6,7 @@ $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCb
 $facebook = new Facebook($access_token);
 
 $verify_token = "just_do_it";
+/*
 $hub_verify_token = null;
 
 
@@ -18,7 +19,7 @@ if(isset($_REQUEST['hub_challenge'])) {
 if ($hub_verify_token === $verify_token) {
     echo $challenge;
 }
-
+*/
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
