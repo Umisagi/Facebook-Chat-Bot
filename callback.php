@@ -1,10 +1,4 @@
 <?php
-/**
- * Webhook for Time Bot- Facebook Messenger Bot
- * User: adnan
- * Date: 24/04/16
- * Time: 3:26 PM
- */
 // Facebook class
 require('facebook-library.php');
 
