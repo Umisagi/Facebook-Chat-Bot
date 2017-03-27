@@ -42,7 +42,8 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
     $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
     if($results->error):
-      return error_log('*************Error : '.print_r($results,true));
+        error_log('*************Error : '.print_r($results,true));
+        error_log("##########Error mid : ".$mid);
     endif;
     $userid = $results->from->id;
     $username = $results->from->name;
