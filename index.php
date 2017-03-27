@@ -88,7 +88,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     // Chk db
 
     // If not found
-    if (!isset($threadid)):
+    if (!isset($threadsearch)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
         //error_log("/*-/*-Results : ".print_r($results,true));
         while (isset($results->paging)):
@@ -105,11 +105,11 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     endif;
     error_log("####Page Sending Mode####");
 endif;
-error_log("***************************");
+error_log("*****************************");
 error_log("------Thread ID : ".$threadid);
 error_log("------Create Time : ".$ctime);
 error_log("------Update Time : ".$updatetime);
-error_log("***************************");
+error_log("*****************************");
 error_log("------Userid : ".$userid);
 error_log("------Username : ".$username);
 error_log("------Pageid : ".$pageid);
