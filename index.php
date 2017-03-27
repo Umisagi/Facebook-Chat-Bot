@@ -28,7 +28,6 @@ if ($hub_verify_token === $verify_token) {
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
-
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
@@ -37,7 +36,7 @@ $time = $time-5;
 $message_to_reply = '';
 
 // Search mid for tid
-
+// Incoming message
 if(!empty($input['entry'][0]['messaging'][0]['message'])):
     $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
@@ -49,8 +48,6 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
     $pageid = $results->to->data[0]->id;
     $pagename = $results->to->data[0]->name;
     $createdtime = $results->created_time;
-
-    //error_log("----Time : ".$time);
     //Chk db
 
     // If not found
@@ -60,20 +57,19 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
         while (isset($results->paging)):
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
-                // Chking if not null
                 if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
                     $threadid = $thread->id;
                     $updatetime = $thread->updated_time;
                 endif;
-                //error_log("-----Threadid : ".$threadid);
             endforeach;
             $results = $facebook->getnext($nextpage);
         endwhile;
     endif;
     error_log("####User Sending Mode####");
 
-elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
-    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0];
+// Outgoing message
+elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])): 
+    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0]; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time, message')->get();
     if($results->error):
       return error_log('*************Error : '.print_r($results,true));
@@ -93,7 +89,6 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
         while (isset($results->paging)):
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
-                // Chking if not null
                 if($thread->participants->data[0]->id == $userid && $thread->participants->data[1]->id == $pageid):
                     $threadid = $thread->id;
                     $updatetime = $thread->updated_time;
@@ -104,6 +99,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     endif;
     error_log("####Page Sending Mode####");
 endif;
+
 error_log("*****************************");
 error_log("------Thread ID : ".$threadid);
 error_log("------Create Time : ".$createdtime);
@@ -117,9 +113,7 @@ error_log("------Thread ID : ".$threadid);
 error_log("------Message ID : ".$mid);
 error_log("------Message : ".$message);
 error_log("------Time : ".$createdtime);
-/**
- * Some Basic rules to validate incoming messages
- */
+
 
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
