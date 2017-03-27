@@ -30,7 +30,7 @@ $time = floor($time);
 $time = $time-5;
 
 $message_to_reply = '';
-/*
+
 // Search mid for tid
 // Incoming message
 if(!empty($input['entry'][0]['messaging'][0]['message'])):
@@ -110,8 +110,8 @@ error_log("------Thread ID : ".$threadid);
 error_log("------Message ID : ".$mid);
 error_log("------Message : ".$message);
 error_log("------Time : ".$createdtime);
-*/
 
+/*
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 
@@ -170,4 +170,4 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
 }
-
+*/
