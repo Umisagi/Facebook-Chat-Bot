@@ -30,6 +30,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
+$ctime = $input['entry'][0]['messaging'][0]['timestamp'];
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001;
 $time = floor($time);
 $time = $time-5;
@@ -90,7 +91,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
         //error_log("/*-/*-Results : ".print_r($results,true));
-        while (isset($results->paging)):
+        while (isset($results->paging)):cre
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
                 // Chking if not null
@@ -104,6 +105,11 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     endif;
     error_log("####Page Sending Mode####");
 endif;
+error_log("***************************");
+error_log("------Thread ID : ".$threadid);
+error_log("------Create Time : ".$ctime);
+error_log("------Update Time : ".$updatetime);
+error_log("***************************");
 error_log("------Userid : ".$userid);
 error_log("------Username : ".$username);
 error_log("------Pageid : ".$pageid);
