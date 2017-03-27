@@ -26,7 +26,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//error_log("****INPUT : ".print_r($input,true));
+error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Message
 $ctime = $input['entry'][0]['messaging'][0]['timestamp'];
@@ -116,7 +116,7 @@ error_log("------Message ID : ".$mid);
 error_log("------Message : ".$message);
 error_log("------Time : ".$createdtime);
 
-/*
+
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 
@@ -176,4 +176,4 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])){
     $result = curl_exec($ch);
 }
 
-*/
+
