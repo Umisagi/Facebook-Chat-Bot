@@ -91,7 +91,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
         //error_log("/*-/*-Results : ".print_r($results,true));
-        while (isset($results->paging)):cre
+        while (isset($results->paging)):
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
                 // Chking if not null
