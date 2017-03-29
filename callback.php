@@ -64,7 +64,7 @@ if(!empty($input['entry'][0]['messaging'][0]['message'])):
     error_log("####User Sending Mode####");
 
 // Outgoing message
-elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])): 
+elseif(!empty($input['entry'][0]['messaging'][0]['message']['is_echo'])): 
     $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0]; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time, message')->get();
     if($results->error):
