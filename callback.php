@@ -65,11 +65,11 @@ if(empty($input['entry'][0]['messaging'][0]['message']['is_echo'])):
 
 // Outgoing message
 elseif(!empty($input['entry'][0]['messaging'][0]['message']['is_echo'])): 
-    $mid = "m_".$input['entry'][0]['messaging'][0]['delivery']['mids'][0]; // Message ID
+    $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time, message')->get();
     if($results->error):
         error_log('*************Error : '.print_r($results,true));
-        error_log("##########Error mid : m_".$mid);
+        error_log("##########Error mid : ".$mid);
     endif;
     $pageid = $results->from->id; 
     $pagename = $results->from->name;
