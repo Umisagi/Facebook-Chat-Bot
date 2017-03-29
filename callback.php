@@ -21,7 +21,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//error_log("****INPUT : ".print_r($input,true));
+error_log("****INPUT : ".print_r($input,true));
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Incoming message
 $ctime = $input['entry'][0]['messaging'][0]['timestamp']; // Epoch timestamp
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
@@ -97,16 +97,16 @@ elseif(!empty($input['entry'][0]['messaging'][0]['delivery'])):
     error_log("####Page Sending Mode####");
 endif;
 
-error_log("*****************************");
-error_log("------Thread ID : ".$threadid);
-error_log("------Create Time : ".$ctime);
-error_log("------Update Time : ".$updatetime);
-error_log("*****************************");
-error_log("------Userid : ".$userid);
-error_log("------Username : ".$username);
-error_log("------Pageid : ".$pageid);
-error_log("------Pagename : ".$pagename);
-error_log("------Thread ID : ".$threadid);
-error_log("------Message ID : ".$mid);
-error_log("------Message : ".$message);
-error_log("------Time : ".$createdtime);
+//error_log("*****************************");
+//error_log("------Thread ID : ".$threadid);
+//error_log("------Create Time : ".$ctime);
+//error_log("------Update Time : ".$updatetime);
+//error_log("*****************************");
+//error_log("------Userid : ".$userid);
+//error_log("------Username : ".$username);
+//error_log("------Pageid : ".$pageid);
+//error_log("------Pagename : ".$pagename);
+//error_log("------Thread ID : ".$threadid);
+//error_log("------Message ID : ".$mid);
+//error_log("------Message : ".$message);
+//error_log("------Time : ".$createdtime);
