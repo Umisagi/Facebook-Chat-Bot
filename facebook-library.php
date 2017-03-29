@@ -77,7 +77,7 @@ class Facebook {
             curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
     $results = curl_exec($curl);
     $get_info = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-    error_log($curl);
+    error_log("***********cURL : ".$this->url_request);
     curl_close($curl);
     return $results;
   }
