@@ -22,8 +22,10 @@ if ($hub_verify_token === $verify_token) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
+$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
+$time = floor($time);
+$time = $time-5;
 $page_id = $input['entry'][0]['id'];
-$thread_id = "Null";
 $message_id = "m_".$input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Incoming message
 $attachment = $input['entry'][0]['messaging'][0]['message']['attachments'];
@@ -38,9 +40,16 @@ $receiver_id = $results->to->data[0]->id;
 $receiver_name = $results->to->data[0]->name;
 $receiver_email = $results->to->data[0]->email;
 $created_time = $results->created_time; // Epoch timestamp
-$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
-$time = floor($time);
-$time = $time-5;
+$results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+while (isset($results->paging)): // If have more than 25 threads
+    $nextthread = $results->paging->next;
+    foreach($results->data as $thread):
+        if(($thread->participants->data[0]->id == $sender_id || $thread->participants->data[0]->id == $receiver_id) && $thread->participants->data[1]->id == $pageid):
+            $thread_id = $thread->id;
+        endif;
+    endforeach;
+    $results = $facebook->getnext($nextpage); // Go to nextpage
+endwhile;
 
 // Search mid for tid
 // Incoming message
@@ -61,7 +70,6 @@ $time = $time-5;
     // If threadID not found
     if (!isset($threadid)):
         $results = $facebook->api("/me/threads")->fields('participants, updated_time')->since($time)->get();
-        //error_log("-----Threads : ".print_r($results,true));
         while (isset($results->paging)): // If have more than 25 threads
             $nextthread = $results->paging->next;
             foreach($results->data as $thread):
