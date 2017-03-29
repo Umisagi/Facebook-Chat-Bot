@@ -44,7 +44,7 @@ $results = $facebook->api("/me/threads")->fields('participants')->since($time)->
 while (isset($results->paging)): // If have more than 25 threads
     $nextthread = $results->paging->next;
     foreach($results->data as $thread):
-        if(($thread->participants->data[0]->id == $sender_id || $thread->participants->data[0]->id == $receiver_id) && $thread->participants->data[1]->id == $pageid):
+        if(($thread->participants->data[0]->id == $sender_id or $thread->participants->data[0]->id == $receiver_id) and $thread->participants->data[1]->id == $pageid):
             $thread_id = $thread->id;
         endif;
     endforeach;
