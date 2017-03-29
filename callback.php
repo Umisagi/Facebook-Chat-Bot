@@ -31,13 +31,13 @@ $results = $facebook->api("/{$message_id}")->fields('from, to, created_time')->g
 if($results->error):
     error_log('*************Error : '.print_r($results,true));
 endif;
-$sender_id = $results[from][id];
-$sebder_name = $results['from']['name'];
-$sender_email = $results['from']['email'];
-$receiver_id = $results['to']['data'][0]['id'];
-$receiver_name = $results['to']['data'][0]['name'];
-$receiver_email = $results['to']['data'][0]['email'];
-$created_time = $results['created_time']; // Epoch timestamp
+$sender_id = $results->from->id;
+$sebder_name = $results->from->name;
+$sender_email = $results->from->email;
+$receiver_id = $results->to->data[0]->id;
+$receiver_name = $results->to->data[0]->name;
+$receiver_email = $results->to->data[0]->email;
+$created_time = $results->created_time; // Epoch timestamp
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
 $time = floor($time);
 $time = $time-5;
