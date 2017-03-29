@@ -32,7 +32,7 @@ $message_to_reply = '';
 
 // Search mid for tid
 // Incoming message
-if(!empty($input['entry'][0]['messaging'][0]['message'])):
+if(empty($input['entry'][0]['messaging'][0]['message']['is_echo'])):
     $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
     if($results->error):
