@@ -31,7 +31,7 @@ $results = $facebook->api("/{$message_id}")->fields('from, to, created_time')->g
 if($results->error):
     error_log('*************Error : '.print_r($results,true));
 endif;
-$sender_id = $results['from']['id'];
+$sender_id = $results[from][id];
 $sebder_name = $results['from']['name'];
 $sender_email = $results['from']['email'];
 $receiver_id = $results['to']['data'][0]['id'];
