@@ -118,7 +118,7 @@ error_log("------Page_id : ".$page_id);
 error_log("------Thread_id : ".$thread_id);
 error_log("------Message_id : ".$message_id);
 error_log("------Message : ".$message);
-error_log("------Attachment : ".$attachment);
+error_log("------Attachment : ".print_r($attachment,true));
 error_log("------Sender_id: ".$sender_id);
 error_log("------Sebder_name : ".$sebder_name);
 error_log("------Sender_email : ".$sender_email);
