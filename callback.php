@@ -23,7 +23,7 @@ if ($hub_verify_token === $verify_token) {
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $page_id = $input['entry'][0]['id'];
-$thread_id = 'Null';
+$thread_id = "Null";
 $message_id = "m_".$input['entry'][0]['messaging'][0]['message']['mid'];
 $message = $input['entry'][0]['messaging'][0]['message']['text']; // Incoming message
 $attachment = $input['entry'][0]['messaging'][0]['message']['attachments'];
@@ -32,7 +32,7 @@ if($results->error):
     error_log('*************Error : '.print_r($results,true));
 endif;
 $sender_id = $results['from']['id'];
-$sebder_name = $results['from']['name]';
+$sebder_name = $results['from']['name'];
 $sender_email = $results['from']['email'];
 $receiver_id = $results['to']['data'][0]['id'];
 $receiver_name = $results['to']['data'][0]['name'];
@@ -44,7 +44,7 @@ $time = $time-5;
 
 // Search mid for tid
 // Incoming message
-/*if(empty($input['entry'][0]['messaging'][0]['message']['is_echo'])):
+/**if(empty($input['entry'][0]['messaging'][0]['message']['is_echo'])):
     $mid = "m_".$input['entry'][0]['messaging'][0]['message']['mid']; // Message ID
     $results = $facebook->api("/{$mid}")->fields('from, to, created_time')->get();
     if($results->error):
@@ -107,7 +107,7 @@ elseif(!empty($input['entry'][0]['messaging'][0]['message']['is_echo'])):
         endwhile;
     endif;
     error_log("####Page Sending Mode####");
-endif;*/
+endif;**/
 
 //error_log("*****************************");
 //error_log("------Thread ID : ".$threadid);
