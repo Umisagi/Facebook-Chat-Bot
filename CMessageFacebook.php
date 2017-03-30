@@ -1,5 +1,4 @@
 <?php
-require_once('facebook-library.php');
 class CMessageFacebook {
 
 	public function getDataMessage( $input, $access_token, $threadid){
