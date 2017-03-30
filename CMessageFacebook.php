@@ -11,7 +11,7 @@ class CMessageFacebook {
 		endif;
 		//data
 		$thread_id = $threadid;
-    	$page_id = $input['entry'][0]['id'];
+    		$page_id = $input['entry'][0]['id'];
 		$message_id = "m_".$input['entry'][0]['messaging'][0]['message']['mid'];
 		$message = $input['entry'][0]['messaging'][0]['message']['text']; // Incoming message
 		$attachment = $input['entry'][0]['messaging'][0]['message']['attachments'];
