@@ -21,7 +21,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//error_log("****INPUT : ".print_r($input,true));
+error_log("****INPUT : ".print_r($input,true));
 $time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
 $time = floor($time);
 $time = $time-5;
