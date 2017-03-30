@@ -34,7 +34,7 @@ if($results->error):
     error_log('*************Error : '.print_r($results,true));
 endif;
 $sender_id = $results->from->id;
-$sebder_name = $results->from->name;
+$sender_name = $results->from->name;
 $sender_email = $results->from->email;
 $receiver_id = $results->to->data[0]->id;
 $receiver_name = $results->to->data[0]->name;
@@ -128,7 +128,7 @@ error_log("------Message_id : ".$message_id);
 error_log("------Message : ".$message);
 error_log("------Attachment : ".print_r($attachment,true));
 error_log("------Sender_id: ".$sender_id);
-error_log("------Sebder_name : ".$sebder_name);
+error_log("------Sender_name : ".$sender_name);
 error_log("------Sender_email : ".$sender_email);
 error_log("------Receiver_id: ".$receiver_id);
 error_log("------Receiver_name : ".$receiver_name);
