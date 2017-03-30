@@ -22,6 +22,7 @@ if ($hub_verify_token === $verify_token)
     echo $challenge;
 }
 $input = json_decode(file_get_contents('php://input'), true);
+error_log("input : ".$input);
 //---------------$sqlString = "SELECT * FROM WEBHOOK_MESSAGE_THREAD WHERE (USER_ID = '".$input['entry'][0]['messaging'][0]['recipient']['id']."' OR USER_ID = '".$input['entry'][0]['messaging'][0]['sender']['id']."') AND PAGE_ID ='".$input['entry'][0]['id']."'";
 //---------------$query = $database->ExecuteReader2($sqlString, array());
 //$message_smm = new CMessageFacebook;
@@ -33,7 +34,6 @@ if(0)
 	//$objects = $message_smm->getDataMessage($input, $access_token, $thread_id);
 } else
 {
-	error_log("input : ".$input);
 	//$objects = $message_smm->getThreadID($input, $access_token);
 }
 //error_log("-----------objects : ".$objects);
