@@ -1,20 +1,16 @@
 <?php
 class CMessageFacebook {
 
-	/*public function __construct($access_token){
-		$this->facebook = new Facebook($access_token);
-	}*/
-
-	public function getDataMessage( $input,$token, $threadid){
+	public function getDataMessage( $input, $access_token, $threadid){
 		$callback = [];
-		$facebook = new Facebook($token);
+		$facebook = new Facebook($access_token);
 		$results = $facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
 		endif;
 		//data
 		$thread_id = $threadid;
-    		$page_id = $input['entry'][0]['id'];
+    	$page_id = $input['entry'][0]['id'];
 		$message_id = "m_".$input['entry'][0]['messaging'][0]['message']['mid'];
 		$message = $input['entry'][0]['messaging'][0]['message']['text']; // Incoming message
 		$attachment = $input['entry'][0]['messaging'][0]['message']['attachments'];
@@ -43,9 +39,9 @@ class CMessageFacebook {
           return $callback;
   	}
 
-  	public function getThreadID($input, $token){
+  	public function getThreadID($input, $access_token){
   		$callback = [];
-  		$facebook = new Facebook($token);
+  		$facebook = new Facebook($access_token);
   		$results = $facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
