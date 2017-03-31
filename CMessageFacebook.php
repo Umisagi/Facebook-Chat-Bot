@@ -1,10 +1,14 @@
 <?php
 class CMessageFacebook {
 
-	public function getDataMessage( $input, $access_token, $threadid){
+	public function __construct($access_token = ''){
+		$this->access_token = $access_token;
+		$this->facebook = new Facebook($this->access_token);
+	}
+
+	public function getDataMessage( $input, $threadid){
 		$callback = [];
-		$facebook = new Facebook($access_token);
-		$results = $facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
+		$results = $this->$facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
 		endif;
@@ -23,26 +27,25 @@ class CMessageFacebook {
 		$created_time = $results->created_time;
 		$data = (object)array(
 			"thread_id" => $thread_id,
-            "page_id" => $page_id,
-            "message_id" => $message_id,
-            "message" => $message,
-            "attachment" => $attachment,
-            "sender_id" => $sender_id,
-            "sebder_name" => $sebder_name,
-            "sender_email" => $sender_email,
-            "receiver_id" => $receiver_id,
-            "receiver_name" => $receiver_name,
-            "receiver_email" => $receiver_email,
-            "created_time" => $created_time,
-          );
-          $callback[] = $data;
-          return $callback;
-  	}
+			"page_id" => $page_id,
+			"message_id" => $message_id,
+			"message" => $message,
+			"attachment" => $attachment,
+			"sender_id" => $sender_id,
+			"sebder_name" => $sebder_name,
+			"sender_email" => $sender_email,
+			"receiver_id" => $receiver_id,
+			"receiver_name" => $receiver_name,
+			"receiver_email" => $receiver_email,
+			"created_time" => $created_time,
+		);
+		  $callback[] = $data;
+		  return $callback;
+		}
 
-  	public function getThreadID($input, $access_token){
+  	public function getThreadID($input){
   		$callback = [];
-  		$facebook = new Facebook($access_token);
-  		$results = $facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
+  		$results = $this->$facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
 		endif;
@@ -61,7 +64,7 @@ class CMessageFacebook {
 		$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
 		$time = floor($time);
 		$time = $time-5;
-		$results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
+		$results = $this->$facebook->api("/me/threads")->fields('participants')->since($time)->get();
 		while (isset($results->paging)): // If have more than 25 threads
 		    $nextthread = $results->paging->next;
 		    foreach($results->data as $thread):
@@ -69,7 +72,7 @@ class CMessageFacebook {
 		            $thread_id = $thread->id;
 		        endif;
 		    endforeach;
-		    $results = $facebook->getnext($nextpage); // Go to nextpage
+		    $results = $this->$facebook->getnext($nextpage); // Go to nextpage
 		endwhile;
 		$data = (object)array(
 			"thread_id" => $thread_id,
