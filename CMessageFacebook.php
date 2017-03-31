@@ -8,7 +8,7 @@ class CMessageFacebook {
 
 	public function getDataMessage( $input, $threadid){
 		$callback = [];
-		$results = $this->$facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
+		$results = $this->facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
 		endif;
@@ -45,7 +45,7 @@ class CMessageFacebook {
 
   	public function getThreadID($input){
   		$callback = [];
-  		$results = $this->$facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
+  		$results = $this->facebook->api("/m_".$input['entry'][0]['messaging'][0]['message']['mid'])->fields('from, to, created_time')->get();
 		if($results->error):
 		    error_log('*************Error : '.print_r($results,true));
 		endif;
@@ -64,7 +64,7 @@ class CMessageFacebook {
 		$time = $input['entry'][0]['messaging'][0]['timestamp']*0.001; // Ignore millisecond
 		$time = floor($time);
 		$time = $time-5;
-		$results = $this->$facebook->api("/me/threads")->fields('participants')->since($time)->get();
+		$results = $this->facebook->api("/me/threads")->fields('participants')->since($time)->get();
 		while (isset($results->paging)): // If have more than 25 threads
 		    $nextthread = $results->paging->next;
 		    foreach($results->data as $thread):
@@ -72,7 +72,7 @@ class CMessageFacebook {
 		            $thread_id = $thread->id;
 		        endif;
 		    endforeach;
-		    $results = $this->$facebook->getnext($nextpage); // Go to nextpage
+		    $results = $this->facebook->getnext($nextpage); // Go to nextpage
 		endwhile;
 		$data = (object)array(
 			"thread_id" => $thread_id,
