@@ -18,7 +18,7 @@ require('facebook-library.php');
 //----------------$database = new CDatabase;
 //----------------$database->Connect();
 $verify_token = "just_do_it";
-$hub_verify_token = null;
+/*$hub_verify_token = null;
 if(isset($_REQUEST['hub_challenge'])) 
 {
     $challenge = $_REQUEST['hub_challenge'];
@@ -27,7 +27,7 @@ if(isset($_REQUEST['hub_challenge']))
 if ($hub_verify_token === $verify_token) 
 {
     echo $challenge;
-}
+}*/
 $input = json_decode(file_get_contents('php://input'), true);
 //---------------$sqlString = "SELECT * FROM WEBHOOK_MESSAGE_THREAD WHERE (USER_ID = '".$input['entry'][0]['messaging'][0]['recipient']['id']."' OR USER_ID = '".$input['entry'][0]['messaging'][0]['sender']['id']."') AND PAGE_ID ='".$input['entry'][0]['id']."'";
 //---------------$query = $database->ExecuteReader2($sqlString, array());
