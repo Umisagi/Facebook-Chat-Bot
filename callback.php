@@ -36,7 +36,7 @@ if(0)
 {
 	$objects = $message_smm->getThreadID($input, $access_token);
 }
-error_log("objects : ".$objects);
+error_log("objects : ".print_r($objects,true));
 
 
 
