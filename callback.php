@@ -11,7 +11,7 @@ require('facebook-library.php');
  */
 //----------------$database = new CDatabase;
 //----------------$database->Connect();
-
+$message_smm = new CMessageFacebook;
 $verify_token = "just_do_it";
 $hub_verify_token = null;
 if(isset($_REQUEST['hub_challenge'])) 
@@ -27,14 +27,18 @@ $input = json_decode(file_get_contents('php://input'), true);
 //---------------$sqlString = "SELECT * FROM WEBHOOK_MESSAGE_THREAD WHERE (USER_ID = '".$input['entry'][0]['messaging'][0]['recipient']['id']."' OR USER_ID = '".$input['entry'][0]['messaging'][0]['sender']['id']."') AND PAGE_ID ='".$input['entry'][0]['id']."'";
 //---------------$query = $database->ExecuteReader2($sqlString, array());
 $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
-$message_smm = new CMessageFacebook();
+$thread_id = '';
 //---------------if(count($query)>0)
 if(0)
 {
-	$thread_id = '';
 	$objects = $message_smm->getDataMessage($input, $access_token, $thread_id);
 } else
 {
-	$objects = $message_smm->getThreadID($input,$access_token);
+	$objects = $message_smm->getThreadID($input, $access_token);
 }
 error_log("objects : ".$objects);
+
+
+
+
+
