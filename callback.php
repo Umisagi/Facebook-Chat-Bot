@@ -17,7 +17,7 @@ require('facebook-library.php');
  */
 //----------------$database = new CDatabase;
 //----------------$database->Connect();
-$verify_token = "just_do_it";
+//$verify_token = "just_do_it";
 /*$hub_verify_token = null;
 if(isset($_REQUEST['hub_challenge'])) 
 {
