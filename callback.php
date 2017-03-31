@@ -42,4 +42,4 @@ if(0)
 {
 	$objects = $message_smm->getThreadID($input);
 }
-error_log("objects : ".print_r($objects,true);
+error_log("objects : ".print_r($objects,true));
