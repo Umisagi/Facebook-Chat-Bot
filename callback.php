@@ -29,7 +29,7 @@ if ($hub_verify_token === $verify_token)
     echo $challenge;
 }*/
 $input = json_decode(file_get_contents('php://input'), true);
-error_log("----INPUT : ".print_r($input,true));
+
 //---------------$sqlString = "SELECT * FROM WEBHOOK_MESSAGE_THREAD WHERE (USER_ID = '".$input['entry'][0]['messaging'][0]['recipient']['id']."' OR USER_ID = '".$input['entry'][0]['messaging'][0]['sender']['id']."') AND PAGE_ID ='".$input['entry'][0]['id']."'";
 //---------------$query = $database->ExecuteReader2($sqlString, array());
 $access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
@@ -43,4 +43,5 @@ if(0)
 {
 	$objects = $message_smm->getThreadID($input);
 }
+error_log("----INPUT : ".print_r($input,true));
 error_log("objects : ".print_r($objects,true));
