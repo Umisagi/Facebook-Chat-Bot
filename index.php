@@ -25,10 +25,11 @@ $input = json_decode(file_get_contents('php://input'), true);
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
-
+$stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
 
 //Initiate cURL.
 $ch = curl_init($url);
+$statech = curl_init($stateurl);
 //The JSON data.
 $jsonData = '{
     "recipient":{
@@ -61,19 +62,21 @@ $jsonData = '{
     }
   }
 }';
-
+$jsonstatedata = '{"state" :"testing","user":{"id":"123456","name":"unnamed"},"messageID":"1a2b3c4"}';
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
+$jsonstateEncoded = $jsonstatedata;
 //error_log("####OUTPUT : ".print_r($jsonDataEncoded,true));
 //Tell cURL that we want to send a POST request.
 curl_setopt($ch, CURLOPT_POST, 1);
-
+curl_setopt($statech, CURLOPT_POST, 1);
 //Attach our encoded JSON string to the POST fields.
 curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonDataEncoded);
-
+curl_setopt($statech, CURLOPT_POSTFIELDS, $jsonstateEncoded);
 //Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-
+curl_setopt($statech, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+curl_exec($statech);
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
