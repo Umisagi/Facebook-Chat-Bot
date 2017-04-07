@@ -44,4 +44,5 @@ $message_smm = new CMessageFacebook($access_token);
 //	$objects = $message_smm->getThreadID($input);
 //}
 error_log("----INPUT : ".print_r($input,true));
+echo print_r($input,true);
 error_log("objects : ".print_r($objects,true));
