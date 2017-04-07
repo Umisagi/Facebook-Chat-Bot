@@ -103,7 +103,8 @@ curl_setopt($statech, CURLOPT_HTTPHEADER, array('Content-Type: application/json'
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
-    curl_exec($statech);
+    $stateresult = curl_exec($statech);
 }
+error_log("state : ".$stateresult);
 
 
