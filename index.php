@@ -76,10 +76,11 @@ curl_setopt($statech, CURLOPT_POSTFIELDS, $jsonstateEncoded);
 //Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 curl_setopt($statech, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-curl_exec($statech);
+
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
+    curl_exec($statech);
 }
 
 
