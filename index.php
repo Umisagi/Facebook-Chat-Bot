@@ -21,7 +21,7 @@ if ($hub_verify_token === $verify_token) {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-//error_log("****INPUT : ".print_r($input,true));
+error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
@@ -99,7 +99,7 @@ curl_setopt($statech, CURLOPT_POSTFIELDS, $jsonstateEncoded);
 //Set the content type to application/json
 curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 curl_setopt($statech, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-error_log("statedata : ".print_r($jsonstateEncoded,true));
+//error_log("statedata : ".print_r($jsonstateEncoded,true));
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
