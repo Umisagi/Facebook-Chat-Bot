@@ -47,3 +47,4 @@ echo "Testing";
 error_log("----INPUT : ".print_r($input,true));
 echo print_r($input,true);
 error_log("objects : ".print_r($objects,true));
+return "wertyuiokjhgfdcvbnkytf";
