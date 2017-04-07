@@ -35,6 +35,21 @@ if (preg_match("/สวัสดี/i", $message)) {
 } else {
     $status = "chatting";
 }
+// MID & TID 
+$results = $this->facebook->api("/m_".$messageID)->fields('from, to, created_time')->get();
+$sender_id = $results->from->id;
+$receiver_id = $results->to->data[0]->id;
+$created_time = $results->created_time;
+$results = $this->facebook->api("/me/threads")->fields('participants')->since($time)->get();
+    while (isset($results->paging)): // If have more than 25 threads
+        $nextthread = $results->paging->next;
+        foreach($results->data as $thread):
+            if(($thread->participants->data[0]->id == $sender_id || $thread->participants->data[0]->id == $receiver_id) && $thread->participants->data[1]->id == $page_id):
+                $thread_id = $thread->id;
+            endif;
+        endforeach;
+        $results = $this->facebook->getnext($nextpage); // Go to nextpage
+    endwhile;
 //Initiate cURL.
 $ch = curl_init($url);
 $statech = curl_init($stateurl);
@@ -70,7 +85,7 @@ $jsonData = '{
     }
   }
 }';
-$jsonstatedata = '{"status" :"'.$status'",thread_id:"",time:"","msg_id":"'.$messageID'"}';
+$jsonstatedata = '{"status" :"'.$status'",thread_id:"'.$thread_id'",time:"'.$created_time'","msg_id":"'.$messageID'"}';
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
 $jsonstateEncoded = $jsonstatedata;
