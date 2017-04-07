@@ -36,11 +36,11 @@ if (preg_match("/สวัสดี/i", $message)) {
     $status = "chatting";
 }
 // MID & TID 
-$results = $this->facebook->api("/m_".$messageID)->fields('from, to, created_time')->get();
+$results = $facebook->api("/m_".$messageID)->fields('from, to, created_time')->get();
 $sender_id = $results->from->id;
 $receiver_id = $results->to->data[0]->id;
 $created_time = $results->created_time;
-$results = $this->facebook->api("/me/threads")->fields('participants')->since($time)->get();
+$results = $facebook->api("/me/threads")->fields('participants')->since($time)->get();
     while (isset($results->paging)): // If have more than 25 threads
         $nextthread = $results->paging->next;
         foreach($results->data as $thread):
@@ -48,7 +48,7 @@ $results = $this->facebook->api("/me/threads")->fields('participants')->since($t
                 $thread_id = $thread->id;
             endif;
         endforeach;
-        $results = $this->facebook->getnext($nextpage); // Go to nextpage
+        $results = $facebook->getnext($nextpage); // Go to nextpage
     endwhile;
 //Initiate cURL.
 $ch = curl_init($url);
