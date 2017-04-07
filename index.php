@@ -23,10 +23,18 @@ if ($hub_verify_token === $verify_token) {
 $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****INPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
+$message = $input['entry'][0]['messaging'][0]['message']['text'];
+$messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 $stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
 
+//State creating
+if (preg_match("/สวัสดี/i", $message)) {
+    $status = "start";
+} else {
+    $status = "chatting";
+}
 //Initiate cURL.
 $ch = curl_init($url);
 $statech = curl_init($stateurl);
@@ -62,7 +70,7 @@ $jsonData = '{
     }
   }
 }';
-$jsonstatedata = '{"state" :"testing","user":{"id":"123456","name":"unnamed"},"messageID":"1a2b3c4"}';
+$jsonstatedata = '{"status" :"'.$status'",thread_id:"",time:"","msg_id":"'.$messageID'"}';
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
 $jsonstateEncoded = $jsonstatedata;
