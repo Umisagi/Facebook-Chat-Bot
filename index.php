@@ -55,7 +55,7 @@ $results = $facebook->api("/me/threads")->fields('participants')->get();
 error_log("Tid : ".$thread_id);
 //Initiate cURL.
 $ch = curl_init($url);
-//$statech = curl_init($stateurl);
+$statech = curl_init($stateurl);
 //The JSON data.
 $jsonData = '{
     "recipient":{
