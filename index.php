@@ -42,7 +42,7 @@ $results = $facebook->api("/m_".$messageID)->fields('from, to, created_time')->g
 $sender_id = $results->from->id;
 $receiver_id = $results->to->data[0]->id;
 $created_time = $results->created_time;
-$results = $facebook->api("/me/threads")->fields('participants')get();
+$results = $facebook->api("/me/threads")->fields('participants')->get();
     while (isset($results->paging)): // If have more than 25 threads
         $nextthread = $results->paging->next;
         foreach($results->data as $thread):
