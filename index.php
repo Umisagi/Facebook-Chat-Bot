@@ -88,7 +88,7 @@ $jsonData = '{
     }
   }
 }';
-$jsonstatedata = '{"status" :"'.$status.'","thread_id":"'.$thread_id.'","time":"'.$created_time.'","msg_id":"'.$messageID.'"}';
+$jsonstatedata = '{"status" :"'.$status.'"}';
 //Encode the array into JSON.
 $jsonDataEncoded = $jsonData;
 $jsonstateEncoded = $jsonstatedata;
