@@ -24,7 +24,9 @@ $input = json_decode(file_get_contents('php://input'), true);
 //error_log("****IndexINPUT : ".print_r($input,true));
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
+
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
+error_log("MID : ".$messageID);
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 $stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
