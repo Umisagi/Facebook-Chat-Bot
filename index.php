@@ -50,7 +50,7 @@ $results = $facebook->api("/me/threads")->fields('participants')->get();
     while (isset($results->paging)): // If have more than 25 threads
         $nextthread = $results->paging->next;
         foreach($results->data as $thread):
-            if(($thread->participants->data[0]->id == $sender_id || $thread->participants->data[0]->id == $receiver_id) && ($thread->participants->data[1]->id == $sender_id || $thread->participants->data[1]->id == $receiver_id)):
+            if(($thread->participants->data[0]->id == $sender_id || $thread->participants->data[0]->id == $receiver_id)):
                 $thread_id = $thread->id;
             endif;
         endforeach;
