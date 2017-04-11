@@ -46,5 +46,6 @@ $message_smm = new CMessageFacebook($access_token);
 
 error_log("----CallbackINPUT : ".print_r($input,true));
 echo print_r($input,true);
+echo $input['status'];
 error_log("objects : ".print_r($objects,true));
 
