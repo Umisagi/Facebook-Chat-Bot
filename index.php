@@ -26,7 +26,7 @@ $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
 
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
-error_log("MID : ".$messageID);
+//error_log("MID : ".$messageID);
 //API Url
 $url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
 $stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
@@ -45,8 +45,8 @@ $results = $facebook->api("/m_".$messageID)->fields('from, to, created_time')->g
 $sender_id = $results->from->id;
 $receiver_id = $results->to->data[0]->id;
 $created_time = $results->created_time;
-error_log("Sender ID : ".$sender_id);
-error_log("Receiver ID : ".$receiver_id);
+//error_log("Sender ID : ".$sender_id);
+//error_log("Receiver ID : ".$receiver_id);
 $results = $facebook->api("/me/threads")->fields('participants')->get();
     while (isset($results->paging)): // If have more than 25 threads
         $nextthread = $results->paging->next;
@@ -57,7 +57,7 @@ $results = $facebook->api("/me/threads")->fields('participants')->get();
         endforeach;
         $results = $facebook->getnext($nextpage); // Go to nextpage
     endwhile;
-error_log("Tid : ".$thread_id);
+//error_log("Tid : ".$thread_id);
 //Initiate cURL.
 $ch = curl_init($url);
 $statech = curl_init($stateurl);
@@ -109,8 +109,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 curl_setopt($statech, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
 
 //curl_setopt($statech, CURLOPT_RETURNTRANSFER, true);
-error_log("stateb4encoded : ".print_r($jsonstatedata,true));
-error_log("statedata : ".print_r($jsonstateEncoded,true));
+//error_log("stateb4encoded : ".print_r($jsonstatedata,true));
+//error_log("statedata : ".print_r($jsonstateEncoded,true));
 //Execute the request
 if(!empty($input['entry'][0]['messaging'][0]['message'])){   
     $result = curl_exec($ch);
