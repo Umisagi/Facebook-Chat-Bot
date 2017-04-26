@@ -3,7 +3,7 @@
 // Facebook class
 require('facebook-library.php');
 
-$access_token = "EAAGHU7aBAlsBAKo1nqpDXS9DPIFgYaj6L05uEm2arLZBsFEvNpgYqg3dlxmYCbppRrNUl6QJNGu8GwghZC9LbWRsgXoZAyuaRwKuSV8ZAo5WtG1bsIvfbzTNEoX397AZAma3xDjBFv8ZCGAwCdUmB7fnStWepmJ6a5hTl4ntJLzwZDZD";
+$access_token = "EAAGHU7aBAlsBAOUMQoZB1k1AaO9l2runfadfuxCIUNVe19n5QsKyKRip3292dqZBMl8sfdK7Pr4XG6mSkE2bRboeclyLZCx69lad4DfkgPPpbZAvpwBaeXLZAK1HRYJM5NUtlafPZBLZA6U7hzkU9uSHwa0zO5vPEmE3m2BDZBhcIwZDZD";
 $facebook = new Facebook($access_token);
 
 $verify_token = "just_do_it";
@@ -28,7 +28,7 @@ error_log("****IndexINPUT : ".$message);
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
 //error_log("MID : ".$messageID);
 //API Url
-$url = 'https://graph.facebook.com/v2.6/me/messages?access_token='.$access_token;
+$url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token;
 //$stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
 $stateurl = 'http://cl1dev.smm.ais.co.th/SMMGetInfo/eric_meter/callbackstatus.php';
 
