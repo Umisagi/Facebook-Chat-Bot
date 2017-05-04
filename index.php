@@ -3,7 +3,7 @@
 // Facebook class
 require('facebook-library.php');
 
-$access_token = "EAAGHU7aBAlsBAOUMQoZB1k1AaO9l2runfadfuxCIUNVe19n5QsKyKRip3292dqZBMl8sfdK7Pr4XG6mSkE2bRboeclyLZCx69lad4DfkgPPpbZAvpwBaeXLZAK1HRYJM5NUtlafPZBLZA6U7hzkU9uSHwa0zO5vPEmE3m2BDZBhcIwZDZD";
+$access_token = "EAAGHU7aBAlsBAPZBZCn3ZBubF59A3L7KWuVthLzf2igbULqKtMZCUbX8ZAl18F2fRYSvEeAU2sIFWzZBIMD7pt4jFhHsKOsmuR0CIsy72V9dakQXKP32O7gKkEBCDIEcF4FpNGNZATMtRZC2tU5siPrvhlDK47ThBXPQq6FbFmM4bwZDZD";
 $facebook = new Facebook($access_token);
 
 $verify_token = "just_do_it";
