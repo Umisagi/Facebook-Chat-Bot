@@ -28,7 +28,7 @@ error_log("****IndexINPUT : ".print_r($input,true));
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
 //error_log("MID : ".$messageID);
 //API Url
-$url = 'https://graph.facebook.com/v2.9/me/messages?access_token='.$access_token;
+$url = 'https://graph.facebook.com/v2.8/me/messages?access_token='.$access_token;
 $stateurl = 'https://calm-retreat-75905.herokuapp.com/callback.php';
 //$stateurl = 'http://cl1dev.smm.ais.co.th/SMMGetInfo/eric_meter/callbackstatus.php';
 
