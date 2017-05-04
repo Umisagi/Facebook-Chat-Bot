@@ -24,7 +24,7 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 $sender = $input['entry'][0]['messaging'][0]['sender']['id']; // ID to send back 
 $message = $input['entry'][0]['messaging'][0]['message']['text'];
-error_log("****IndexINPUT : ".$message);
+error_log("****IndexINPUT : ".print_r($input,true));
 $messageID = $input['entry'][0]['messaging'][0]['message']['mid'];
 //error_log("MID : ".$messageID);
 //API Url
